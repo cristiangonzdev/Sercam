@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sercam — Construcción y Mantenimiento en Lanzarote</title>
+<meta name="description" content="Sercam. Construcción, reformas, fontanería y mantenimiento de piscinas y hoteles en Lanzarote. Más de 15 años, equipo propio y garantía en todos los trabajos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f1f3d;
+  --navy-deep:#081326;
+  --navy-soft:#1a2f55;
+  --amber:#e87c2c;
+  --amber-hi:#f29344;
+  --amber-lo:#c4641a;
+  --off:#f8f6f2;
+  --off-2:#ece7dc;
+  --ink:#1a2332;
+  --mute:#5a6578;
+  --line:rgba(15,31,61,.12);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+body{
+  font-family:'Barlow',system-ui,sans-serif;
+  font-size:16px;line-height:1.6;color:var(--ink);
+  background:var(--off);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 1.5rem}
+
+/* subtle grain */
+.grain{position:relative;isolation:isolate}
+.grain::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.25rem 0;
+  transition:background 300ms var(--ease),padding 300ms var(--ease),backdrop-filter 300ms var(--ease),border-color 300ms var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(8,19,38,.88);
+  backdrop-filter:blur(14px) saturate(1.2);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);
+  padding:.85rem 0;
+  border-bottom-color:rgba(255,255,255,.06);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.logo{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.75rem;
+  color:#fff;text-transform:uppercase;letter-spacing:.02em;
+}
+.logo-mark{
+  width:30px;height:30px;position:relative;flex-shrink:0;
+  background:var(--amber);transform:rotate(45deg);
+  box-shadow:0 0 0 3px rgba(232,124,44,.18);
+}
+.logo-mark::after{content:"";position:absolute;inset:7px;background:var(--navy-deep)}
+.logo span.wordmark{line-height:1}
+.nav-links{display:flex;gap:2.25rem;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,.85);font-weight:500;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.12em;
+  transition:color 200ms var(--ease);
+  position:relative;padding:.3rem 0;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--amber);
+  transition:width 250ms var(--ease);
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+.nav-links a:hover::after,.nav-links a:focus-visible::after{width:100%}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.5rem;background:var(--amber);color:var(--navy-deep);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;
+  text-transform:uppercase;letter-spacing:.1em;
+  transition:background 220ms var(--ease),transform 220ms var(--ease),box-shadow 220ms var(--ease);
+  min-height:44px;
+}
+.nav-cta:hover{background:var(--amber-hi);transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(232,124,44,.45)}
+.nav-toggle{display:none;color:#fff;padding:.5rem;min-width:44px;min-height:44px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:100dvh;
+  display:flex;align-items:center;
+  padding:8rem 0 6rem;
+  background:
+    radial-gradient(ellipse at 80% 30%, rgba(232,124,44,.15), transparent 55%),
+    linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 45%,var(--navy-soft) 100%);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:88px 88px;
+  mask-image:radial-gradient(ellipse at 70% 45%,#000 25%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse at 70% 45%,#000 25%,transparent 78%);
+}
+.hero-shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-shape{position:absolute;border:2px solid rgba(255,255,255,.1)}
+.hero-shape.a{width:540px;height:540px;right:-140px;top:-110px;transform:rotate(18deg)}
+.hero-shape.b{width:340px;height:340px;right:18%;bottom:-120px;transform:rotate(32deg);border-color:rgba(232,124,44,.35)}
+.hero-shape.c{width:160px;height:160px;right:38%;top:22%;transform:rotate(-12deg);border-color:rgba(255,255,255,.15)}
+.hero-blob{
+  position:absolute;width:640px;height:640px;right:-12%;top:18%;
+  background:radial-gradient(circle,rgba(232,124,44,.22),transparent 65%);
+  filter:blur(40px);pointer-events:none;
+}
+.hero-bars{
+  position:absolute;left:0;right:0;bottom:0;height:80px;
+  background:
+    repeating-linear-gradient(90deg,rgba(232,124,44,.0) 0 60px,rgba(232,124,44,.14) 60px 62px);
+  mask-image:linear-gradient(to top,#000,transparent);
+  -webkit-mask-image:linear-gradient(to top,#000,transparent);
+}
+
+.hero-content{position:relative;z-index:2;max-width:860px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.85rem;
+  color:var(--amber);font-size:.85rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.2em;
+  margin-bottom:1.5rem;
+  animation:fadeUp 700ms var(--ease) both;
+}
+.hero-eyebrow::before{content:"";width:40px;height:2px;background:var(--amber)}
+.hero h1{
+  font-size:clamp(2.75rem,7.4vw,5.75rem);
+  font-weight:800;text-transform:uppercase;
+  margin-bottom:1.5rem;
+  animation:fadeUp 800ms var(--ease) 120ms both;
+}
+.hero h1 .line2{display:block;color:var(--amber)}
+.hero h1 .line2::after{
+  content:"";display:inline-block;width:.5em;height:.12em;
+  background:var(--amber);margin-left:.3em;vertical-align:middle;
+}
+.hero p{
+  font-size:clamp(1.05rem,1.6vw,1.25rem);
+  color:rgba(255,255,255,.82);
+  max-width:600px;margin-bottom:2.75rem;line-height:1.55;
+  animation:fadeUp 800ms var(--ease) 260ms both;
+}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;animation:fadeUp 800ms var(--ease) 400ms both}
+.hero-meta{
+  position:absolute;left:1.5rem;bottom:2rem;z-index:2;
+  display:flex;align-items:center;gap:.75rem;
+  color:rgba(255,255,255,.55);font-size:.75rem;
+  text-transform:uppercase;letter-spacing:.25em;
+  animation:fadeUp 800ms var(--ease) 600ms both;
+}
+.hero-meta::before{content:"";width:30px;height:1px;background:rgba(255,255,255,.3)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:1.1rem 2rem;min-height:52px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
+  text-transform:uppercase;letter-spacing:.12em;
+  border:2px solid transparent;
+  transition:all 250ms var(--ease);
+  white-space:nowrap;
+}
+.btn .arrow{transition:transform 220ms var(--ease)}
+.btn:hover .arrow{transform:translateX(5px)}
+.btn-primary{background:var(--amber);color:var(--navy-deep)}
+.btn-primary:hover,.btn-primary:focus-visible{
+  background:var(--amber-hi);transform:translateY(-2px);
+  box-shadow:0 16px 36px -12px rgba(232,124,44,.55);
+}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.btn-outline:hover,.btn-outline:focus-visible{
+  border-color:#fff;background:rgba(255,255,255,.06);
+}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+
+/* ---------- TRUST ---------- */
+.trust{
+  position:relative;z-index:3;
+  background:var(--navy-deep);color:#fff;
+  padding:3.25rem 0;
+  clip-path:polygon(0 28%,100% 0,100% 100%,0 100%);
+  margin-top:-90px;
+}
+.trust-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  padding-top:2rem;
+}
+.trust-item{
+  text-align:center;padding:1rem 1.25rem;
+  border-left:1px solid rgba(255,255,255,.09);
+}
+.trust-item:first-child{border-left:none}
+.trust-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(2.25rem,4.5vw,3.25rem);font-weight:800;
+  color:var(--amber);line-height:1;margin-bottom:.4rem;
+  letter-spacing:-.02em;
+}
+.trust-label{
+  font-size:.82rem;color:rgba(255,255,255,.72);
+  text-transform:uppercase;letter-spacing:.14em;
+}
+
+/* ---------- SECTION HEAD ---------- */
+.section{padding:7rem 0;position:relative}
+.section-head{max-width:720px;margin:0 auto 4rem;text-align:center}
+.section-head.left{text-align:left;margin-left:0}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:.75rem;
+  color:var(--amber);font-size:.8rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;margin-bottom:1rem;
+}
+.section-eyebrow::before{content:"";width:28px;height:2px;background:var(--amber)}
+.section-head h2{
+  font-size:clamp(2.25rem,4.8vw,3.5rem);
+  text-transform:uppercase;color:var(--navy);margin-bottom:1rem;
+}
+.section-head h2 em{font-style:normal;color:var(--amber)}
+.section-head p{color:var(--mute);font-size:1.05rem;line-height:1.6}
+
+/* ---------- SERVICES ---------- */
+.services{background:var(--off)}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;
+}
+.service-card{
+  position:relative;padding:2.5rem 2rem 2.5rem;
+  background:#fff;border:1px solid var(--line);
+  transition:transform 340ms var(--ease),box-shadow 340ms var(--ease),border-color 340ms var(--ease);
+  overflow:hidden;
+  isolation:isolate;
+}
+.service-card::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(15,31,61,.025) 100%);
+  opacity:0;transition:opacity 340ms var(--ease);
+}
+.service-card::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:4px;
+  background:var(--amber);transform:scaleX(0);transform-origin:left;
+  transition:transform 420ms var(--ease);
+}
+.service-card>*{position:relative;z-index:1}
+.service-card:hover,.service-card:focus-within{
+  transform:translateY(-8px);
+  box-shadow:0 28px 56px -22px rgba(15,31,61,.22);
+  border-color:transparent;
+}
+.service-card:hover::before,.service-card:focus-within::before{opacity:1}
+.service-card:hover::after,.service-card:focus-within::after{transform:scaleX(1)}
+.service-num{
+  position:absolute;top:1.5rem;right:1.5rem;z-index:1;
+  font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;
+  color:var(--mute);letter-spacing:.15em;
+}
+.service-icon{
+  width:60px;height:60px;display:flex;align-items:center;justify-content:center;
+  background:rgba(232,124,44,.1);color:var(--amber);
+  margin-bottom:1.75rem;
+  transition:background 300ms var(--ease),color 300ms var(--ease),transform 300ms var(--ease);
+}
+.service-icon svg{width:30px;height:30px;stroke-width:1.75}
+.service-card:hover .service-icon{background:var(--amber);color:#fff;transform:rotate(-3deg) scale(1.05)}
+.service-card h3{
+  font-size:1.55rem;color:var(--navy);text-transform:uppercase;
+  margin-bottom:.75rem;
+}
+.service-card p{color:var(--mute);font-size:.95rem;line-height:1.58}
+
+/* ---------- WHY ---------- */
+.why{background:var(--off-2);position:relative}
+.why .container{position:relative;z-index:1}
+.why-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;
+}
+.why-item{
+  position:relative;padding:2.5rem 2rem;
+  background:#fff;border:1px solid var(--line);
+  text-align:left;
+}
+.why-item::before{
+  content:"";position:absolute;top:0;left:0;width:40px;height:40px;
+  border-top:3px solid var(--amber);border-left:3px solid var(--amber);
+}
+.why-num{
+  position:absolute;top:1.5rem;right:1.75rem;
+  font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:800;
+  color:rgba(15,31,61,.07);line-height:1;
+}
+.why-icon{
+  width:60px;height:60px;display:flex;align-items:center;justify-content:center;
+  color:var(--amber);margin-bottom:1.5rem;
+  background:rgba(232,124,44,.08);
+}
+.why-icon svg{width:28px;height:28px;stroke-width:1.6}
+.why-item h3{
+  font-size:1.5rem;color:var(--navy);text-transform:uppercase;margin-bottom:.75rem;
+}
+.why-item p{color:var(--mute);font-size:.98rem;line-height:1.6}
+
+/* ---------- CTA BAND ---------- */
+.cta-band{
+  position:relative;padding:6rem 0;
+  background:var(--navy-deep);color:#fff;
+  clip-path:polygon(0 0,100% 4%,100% 100%,0 96%);
+  margin:3rem 0;
+  overflow:hidden;
+}
+.cta-band::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 15% 50%,rgba(232,124,44,.2),transparent 55%),
+    linear-gradient(120deg,var(--navy-deep),var(--navy) 55%,var(--navy-soft));
+}
+.cta-band::after{
+  content:"";position:absolute;top:0;right:0;width:45%;height:100%;
+  background:
+    repeating-linear-gradient(-45deg,transparent 0 24px,rgba(232,124,44,.04) 24px 25px);
+  pointer-events:none;
+}
+.cta-band-inner{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2.5rem;flex-wrap:wrap;
+}
+.cta-band .eyebrow{
+  color:var(--amber);font-size:.82rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;margin-bottom:.75rem;
+  display:block;
+}
+.cta-band h2{
+  font-size:clamp(2rem,4.4vw,3.25rem);
+  text-transform:uppercase;max-width:720px;
+}
+.cta-band h2 span{color:var(--amber)}
+
+/* ---------- CONTACT ---------- */
+.contact{background:var(--off)}
+.contact-grid{
+  display:grid;grid-template-columns:1.05fr 1fr;
+  gap:4rem;align-items:start;
+}
+.contact-info h2{
+  font-size:clamp(2rem,4.2vw,3rem);
+  color:var(--navy);text-transform:uppercase;margin-bottom:1.25rem;
+}
+.contact-info>p{
+  color:var(--mute);font-size:1.05rem;
+  margin-bottom:2.5rem;max-width:480px;line-height:1.6;
+}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link{
+  display:flex;align-items:center;gap:1.1rem;
+  padding:1.3rem 1.5rem;background:#fff;
+  border:1px solid var(--line);border-left:4px solid var(--amber);
+  transition:transform 240ms var(--ease),box-shadow 240ms var(--ease);
+  min-height:44px;
+}
+.contact-link:hover{
+  transform:translateX(5px);
+  box-shadow:0 14px 32px -14px rgba(15,31,61,.18);
+}
+.contact-link-icon{
+  width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  background:rgba(232,124,44,.12);color:var(--amber);flex-shrink:0;
+}
+.contact-link-label{
+  display:block;font-size:.75rem;color:var(--mute);
+  text-transform:uppercase;letter-spacing:.14em;margin-bottom:.2rem;
+}
+.contact-link-value{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.3rem;font-weight:700;color:var(--navy);
+}
+
+/* ---------- FORM ---------- */
+.contact-form{
+  position:relative;background:#fff;
+  padding:2.75rem;border:1px solid var(--line);
+}
+.contact-form::before{
+  content:"";position:absolute;top:-1px;left:-1px;
+  width:48px;height:48px;
+  border-top:3px solid var(--amber);border-left:3px solid var(--amber);
+}
+.contact-form::after{
+  content:"";position:absolute;bottom:-1px;right:-1px;
+  width:48px;height:48px;
+  border-bottom:3px solid var(--amber);border-right:3px solid var(--amber);
+}
+.form-title{
+  font-size:1.4rem;color:var(--navy);text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.form-sub{color:var(--mute);font-size:.92rem;margin-bottom:1.75rem}
+.form-row{margin-bottom:1.15rem}
+.form-row label{
+  display:block;font-size:.78rem;font-weight:600;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.45rem;
+}
+.form-row label .req{color:var(--amber)}
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;padding:.9rem 1rem;
+  font-family:'Barlow',sans-serif;font-size:1rem;color:var(--ink);
+  background:var(--off);border:1px solid var(--line);border-radius:0;
+  transition:border-color 200ms var(--ease),background 200ms var(--ease);
+  min-height:48px;
+}
+.form-row textarea{resize:vertical;min-height:130px;font-family:'Barlow',sans-serif}
+.form-row input:hover,.form-row select:hover,.form-row textarea:hover{border-color:rgba(15,31,61,.2)}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{
+  outline:none;border-color:var(--amber);background:#fff;
+  box-shadow:0 0 0 3px rgba(232,124,44,.12);
+}
+.form-submit{width:100%;justify-content:center;margin-top:.5rem}
+.form-note{
+  display:block;margin-top:.9rem;font-size:.78rem;color:var(--mute);
+  text-align:center;
+}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  background:var(--navy-deep);color:rgba(255,255,255,.7);
+  padding:5rem 0 2rem;position:relative;
+}
+.footer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--amber) 0%,var(--amber) 15%,transparent 15%,transparent 100%);
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3.5rem;
+}
+.footer .logo{color:#fff;margin-bottom:1.25rem}
+.footer-about{font-size:.95rem;max-width:340px;line-height:1.65}
+.footer-col h4{
+  color:#fff;font-family:'Barlow',sans-serif;
+  font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;
+  margin-bottom:1.25rem;font-weight:600;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.footer-col a{font-size:.95rem;transition:color 200ms var(--ease)}
+.footer-col a:hover{color:var(--amber)}
+.footer-location{
+  display:inline-flex;align-items:center;gap:.5rem;
+  color:var(--amber);font-weight:500;
+}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:2rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;
+  gap:1rem;font-size:.82rem;
+}
+.footer-bottom .pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  color:rgba(255,255,255,.5);
+}
+.footer-bottom .pill::before{
+  content:"";width:6px;height:6px;background:var(--amber);border-radius:50%;
+  box-shadow:0 0 0 3px rgba(232,124,44,.2);
+}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:980px){
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .nav.open{background:rgba(8,19,38,.97);backdrop-filter:blur(14px)}
+  .nav.open .nav-links{
+    display:flex;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;padding:1.5rem 2rem 2rem;gap:1.25rem;
+    background:rgba(8,19,38,.97);
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+  .nav.open .nav-cta{
+    display:inline-flex;justify-content:center;
+    margin:.5rem 2rem 2rem;
+  }
+  .trust{clip-path:polygon(0 12%,100% 0,100% 100%,0 100%);margin-top:-60px}
+  .trust-grid{grid-template-columns:repeat(2,1fr);gap:2rem 0;padding-top:1rem}
+  .trust-item:nth-child(2n+1){border-left:none}
+  .trust-item:nth-child(3),.trust-item:nth-child(4){border-top:1px solid rgba(255,255,255,.09);padding-top:2rem}
+  .why-grid{grid-template-columns:1fr;gap:1.5rem}
+  .contact-grid{grid-template-columns:1fr;gap:3.5rem}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .cta-band-inner{flex-direction:column;align-items:flex-start;text-align:left}
+  .section{padding:6rem 0}
+}
+@media (max-width:600px){
+  .container{padding:0 1.25rem}
+  .hero{padding:7rem 0 5rem}
+  .hero h1{font-size:clamp(2.5rem,10vw,3.5rem)}
+  .hero-meta{display:none}
+  .section{padding:5rem 0}
+  .section-head{margin-bottom:3rem}
+  .services-grid{gap:1rem}
+  .service-card,.why-item{padding:2rem 1.5rem}
+  .contact-form{padding:1.75rem}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .hero-ctas .btn{flex:1 1 auto;justify-content:center;padding:1rem 1.25rem}
+  .btn{font-size:.92rem;letter-spacing:.1em}
+}
+</style>
+</head>
+<body>
+
+<!-- ========= NAV ========= -->
+<nav class="nav" id="nav" aria-label="Navegación principal">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="Sercam - Inicio">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="wordmark">Sercam</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">
+      Solicitar Presupuesto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ========= HERO ========= -->
+<header class="hero grain" id="top">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-shapes" aria-hidden="true">
+    <div class="hero-shape a"></div>
+    <div class="hero-shape b"></div>
+    <div class="hero-shape c"></div>
+  </div>
+  <div class="hero-blob" aria-hidden="true"></div>
+  <div class="hero-bars" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <span class="hero-eyebrow">Lanzarote · Islas Canarias</span>
+    <h1>
+      Tu obra en manos
+      <span class="line2">de expertos</span>
+    </h1>
+    <p>
+      Construcción, reformas y mantenimiento integral para hoteles, establecimientos turísticos
+      y propietarios particulares en toda Lanzarote. Más de 15 años levantando proyectos con
+      equipo propio, garantía por escrito y compromiso real.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn btn-primary">
+        Presupuesto gratis
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+      <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-meta" aria-hidden="true">Sercam · Est. 2009</div>
+</header>
+
+<!-- ========= TRUST BAR ========= -->
+<section class="trust" aria-label="Datos destacados">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-num">+15</div>
+        <div class="trust-label">Años de experiencia</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">+500</div>
+        <div class="trust-label">Proyectos entregados</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">100%</div>
+        <div class="trust-label">Lanzarote &amp; Canarias</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">24h</div>
+        <div class="trust-label">Respuesta garantizada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= SERVICES ========= -->
+<section class="section services" id="servicios">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Nuestros Servicios</span>
+      <h2>Todo tu proyecto, <em>un solo equipo</em></h2>
+      <p>Desde la cimentación hasta el mantenimiento diario. La solución integral para propietarios, hoteles y gestores turísticos en Lanzarote.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21h18"/>
+            <path d="M5 21V9l7-5 7 5v12"/>
+            <path d="M9 21v-6h6v6"/>
+            <path d="M9 11h1.5M13.5 11H15"/>
+          </svg>
+        </div>
+        <h3>Construcción y obra nueva</h3>
+        <p>Viviendas unifamiliares, naves y ampliaciones ejecutadas llave en mano, desde el terreno hasta la entrega final.</p>
+      </article>
+
+      <article class="service-card reveal">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.77z"/>
+          </svg>
+        </div>
+        <h3>Reformas integrales</h3>
+        <p>Transformamos tu hogar o local desde cero. Diseño, gestión de gremios y acabados de calidad con un único interlocutor.</p>
+      </article>
+
+      <article class="service-card reveal">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 4h6v6"/>
+            <path d="M20 4l-8 8"/>
+            <path d="M10 14l-6 6"/>
+            <path d="M4 14v6h6"/>
+            <circle cx="12" cy="12" r="1.2"/>
+          </svg>
+        </div>
+        <h3>Fontanería</h3>
+        <p>Instalaciones, averías urgentes y redes completas de agua. Servicio rápido para reparaciones y proyectos nuevos.</p>
+      </article>
+
+      <article class="service-card reveal">
+        <span class="service-num">04</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/>
+            <path d="M2 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/>
+            <path d="M7 13V6a2 2 0 0 1 4 0"/>
+            <path d="M13 13V6a2 2 0 0 1 4 0"/>
+          </svg>
+        </div>
+        <h3>Mantenimiento de piscinas</h3>
+        <p>Tratamiento del agua, limpieza, reparaciones y puesta a punto. Tu piscina siempre lista para la temporada alta.</p>
+      </article>
+
+      <article class="service-card reveal">
+        <span class="service-num">05</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21h18"/>
+            <path d="M5 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15"/>
+            <path d="M15 21V11h4a1 1 0 0 1 1 1v9"/>
+            <path d="M8 8h2M8 12h2M8 16h2"/>
+          </svg>
+        </div>
+        <h3>Mantenimiento hotelero</h3>
+        <p>Servicio preventivo y correctivo para hoteles y apartamentos turísticos. Disponibilidad total para que tu operativa no pare.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========= WHY ========= -->
+<section class="section why grain" id="nosotros">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Por qué Sercam</span>
+      <h2>Un contratista <em>de confianza</em></h2>
+      <p>No somos intermediarios. Somos la empresa que pone la mano en la obra, responde al teléfono y firma la garantía.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <span class="why-num">01</span>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Equipo propio</h3>
+        <p>No subcontratamos. Nuestros oficiales y especialistas llevan años en Sercam, garantizando calidad y seguimiento directo en cada obra.</p>
+      </div>
+
+      <div class="why-item reveal">
+        <span class="why-num">02</span>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <h3>Garantía en todos los trabajos</h3>
+        <p>Cada proyecto entregado va acompañado de garantía por escrito. Si aparece cualquier imprevisto, lo resolvemos sin discusión.</p>
+      </div>
+
+      <div class="why-item reveal">
+        <span class="why-num">03</span>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="13" y2="17"/>
+          </svg>
+        </div>
+        <h3>Presupuesto sin compromiso</h3>
+        <p>Visita técnica gratuita y presupuesto detallado. Sin cláusulas ocultas. Tú decides con toda la información encima de la mesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= CTA BAND ========= -->
+<section class="cta-band grain">
+  <div class="container cta-band-inner">
+    <div class="reveal">
+      <span class="eyebrow">Tu próximo proyecto</span>
+      <h2>¿Tienes un proyecto <span>en mente?</span></h2>
+    </div>
+    <a href="#contacto" class="btn btn-primary reveal">
+      Hablemos del tuyo
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ========= CONTACT ========= -->
+<section class="section contact" id="contacto">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="section-eyebrow">Contacto directo</span>
+      <h2>Cuéntanos tu proyecto</h2>
+      <p>Respondemos en menos de 24 horas. Atendemos consultas en toda Lanzarote, Fuerteventura y el resto de Canarias.</p>
+
+      <div class="contact-links">
+        <a href="tel:+34928000000" class="contact-link" aria-label="Llamar al +34 928 00 00 00">
+          <span class="contact-link-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </span>
+          <span>
+            <span class="contact-link-label">Llámanos</span>
+            <span class="contact-link-value">+34 928 00 00 00</span>
+          </span>
+        </a>
+
+        <a href="https://wa.me/34600000000" class="contact-link" aria-label="Escribir por WhatsApp">
+          <span class="contact-link-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </span>
+          <span>
+            <span class="contact-link-label">WhatsApp directo</span>
+            <span class="contact-link-value">Escríbenos ahora</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm" novalidate>
+      <h3 class="form-title">Solicita tu presupuesto</h3>
+      <p class="form-sub">Completa el formulario y te contactaremos lo antes posible.</p>
+
+      <div class="form-row">
+        <label for="name">Nombre completo <span class="req">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Tu nombre" autocomplete="name" required>
+      </div>
+      <div class="form-row">
+        <label for="phone">Teléfono <span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="+34 600 000 000" autocomplete="tel" required>
+      </div>
+      <div class="form-row">
+        <label for="service">Servicio que necesitas <span class="req">*</span></label>
+        <select id="service" name="service" required>
+          <option value="">Selecciona un servicio</option>
+          <option>Construcción y obra nueva</option>
+          <option>Reformas integrales</option>
+          <option>Fontanería</option>
+          <option>Mantenimiento de piscinas</option>
+          <option>Mantenimiento hotelero</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" placeholder="Cuéntanos brevemente tu proyecto..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit">
+        Enviar solicitud
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+      <small class="form-note">Tus datos solo se utilizan para responder a tu consulta.</small>
+    </form>
+  </div>
+</section>
+
+<!-- ========= FOOTER ========= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="logo">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="wordmark">Sercam</span>
+        </a>
+        <p class="footer-about">
+          Construcción, reformas y mantenimiento integral en Lanzarote. Un equipo propio a tu disposición desde 2009.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Construcción</a></li>
+          <li><a href="#servicios">Reformas</a></li>
+          <li><a href="#servicios">Fontanería</a></li>
+          <li><a href="#servicios">Piscinas</a></li>
+          <li><a href="#servicios">Hoteles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#">Aviso legal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+34928000000">+34 928 00 00 00</a></li>
+          <li><a href="mailto:hola@sercam.es">hola@sercam.es</a></li>
+          <li><span class="footer-location">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Lanzarote, Islas Canarias
+          </span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Sercam. Todos los derechos reservados.</div>
+      <div class="pill">Hecho con precisión en Lanzarote</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const updateNav = () => {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('.nav-links a, .nav .nav-cta').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('open'));
+  });
+
+  // Scroll reveal with stagger
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.services-grid .service-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 90) + 'ms';
+  });
+  document.querySelectorAll('.why-grid .why-item').forEach((item, i) => {
+    item.style.transitionDelay = (i * 120) + 'ms';
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Form — placeholder handler
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    const original = btn.innerHTML;
+    btn.innerHTML = 'Enviando...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '✓ Solicitud enviada';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
+        e.target.reset();
+      }, 2200);
+    }, 700);
+  });
+</script>
+</body>
+</html>
